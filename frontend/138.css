@@ -1,0 +1,92 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* SplitSmart common styling */
+
+.ss-form {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+  max-width: 650px;
+  box-shadow: 0 3px 15px rgba(52,36,91,0.07);
+  color: #34245B;
+}
+
+.ss-form h2 {
+  color: #34245B;
+  margin-bottom: 24px;
+}
+
+.ss-form label {
+  display: block;
+  margin: 16px 0 7px;
+  font-weight: 600;
+}
+
+.ss-form input,
+.ss-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ded8eb;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 15px;
+}
+
+.ss-form input:focus,
+.ss-form select:focus {
+  outline: 2px solid #8065C9;
+  border-color: #8065C9;
+}
+
+.ss-form button {
+  background: #8065C9;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.ss-form button:hover {
+  background: #34245B;
+}
+
+.ss-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+}
+
+.ss-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 550px;
+}
+
+.ss-table th {
+  background: #F5F2FA;
+  color: #34245B;
+  text-align: left;
+  padding: 15px;
+}
+
+.ss-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eeeaf4;
+}
+
+.ss-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .ss-form {
+    padding: 18px;
+  }
+}
+</style>
+<!-- end Simple Custom CSS and JS -->
