@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "description": "Dinner",
+    "amount": 900,
+    "group": "College Friends",
+    "paidBy": "You",
+    "participants": 3,
+    "date": "2026-11-12"
+  },
+  {
+    "id": 2,
+    "description": "Groceries",
+    "amount": 600,
+    "group": "Flatmates",
+    "paidBy": "Riya",
+    "participants": 3,
+    "date": "2026-11-13"
+  },
+  {
+    "id": 3,
+    "description": "Movie",
+    "amount": 450,
+    "group": "College Friends",
+    "paidBy": "You",
+    "participants": 3,
+    "date": "2026-11-14"
+  }
+]

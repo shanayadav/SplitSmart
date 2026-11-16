@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Groups | SplitSmart</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <a class="brand" href="/">SplitSmart.</a>
+    <button class="menu-button" data-menu-button aria-label="Open menu">☰</button>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar" data-sidebar>
+      <a class="brand" href="/">SplitSmart.</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="/"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link active" href="/pages/groups.html"><span class="nav-icon">♧</span>My Groups</a>
+        <a class="nav-link" href="/pages/add-expense.html"><span class="nav-icon">＋</span>Add Expense</a>
+        <a class="nav-link" href="/pages/balances.html"><span class="nav-icon">◈</span>Balances</a>
+        <a class="nav-link" href="/pages/history.html"><span class="nav-icon">◷</span>History</a>
+      </nav>
+    </aside>
+    <div class="menu-overlay" data-menu-overlay></div>
+
+    <main class="page-content">
+      <section class="page-heading">
+        <div>
+          <h1>My Groups</h1>
+          <p class="subtitle">Three sample groups keep the project simple.</p>
+        </div>
+        <a class="button" href="/pages/add-expense.html">+ Add Expense</a>
+      </section>
+
+      <section class="group-grid">
+        <article class="card group-card">
+          <h2>Goa Trip</h2>
+          <p class="member-list">You, Riya, Ananya and Simran</p>
+          <p class="group-total">4 members</p>
+          <p class="muted">Trip expenses</p>
+        </article>
+        <article class="card group-card">
+          <h2>Flatmates</h2>
+          <p class="member-list">You, Riya and Ananya</p>
+          <p class="group-total">3 members</p>
+          <p class="muted">Home expenses</p>
+        </article>
+        <article class="card group-card">
+          <h2>College Friends</h2>
+          <p class="member-list">You, Riya, Ananya, Kajal and Simran</p>
+          <p class="group-total">5 members</p>
+          <p class="muted">Food and entertainment</p>
+        </article>
+      </section>
+
+      <aside class="explanation">
+        <strong>Project scope:</strong> Groups are fixed sample data. Creating groups, invitations and member accounts are intentionally not included.
+      </aside>
+    </main>
+  </div>
+  <script src="/js/common.js"></script>
+</body>
+</html>

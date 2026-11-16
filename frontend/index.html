@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | SplitSmart</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <a class="brand" href="/">SplitSmart.</a>
+    <button class="menu-button" data-menu-button aria-label="Open menu">☰</button>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" data-sidebar>
+      <a class="brand" href="/">SplitSmart.</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link active" href="/"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link" href="/pages/groups.html"><span class="nav-icon">♧</span>My Groups</a>
+        <a class="nav-link" href="/pages/add-expense.html"><span class="nav-icon">＋</span>Add Expense</a>
+        <a class="nav-link" href="/pages/balances.html"><span class="nav-icon">◈</span>Balances</a>
+        <a class="nav-link" href="/pages/history.html"><span class="nav-icon">◷</span>History</a>
+      </nav>
+    </aside>
+    <div class="menu-overlay" data-menu-overlay></div>
+
+    <main class="page-content">
+      <section class="page-heading">
+        <div>
+          <h1>Welcome to SplitSmart</h1>
+          <p class="subtitle">Manage shared expenses without awkward calculations.</p>
+        </div>
+        <a class="button" href="/pages/add-expense.html">+ Add Expense</a>
+      </section>
+
+      <section class="stats-grid" aria-label="Expense summary">
+        <article class="card stat-card">
+          <p>My Groups</p>
+          <h2 class="stat-value">3</h2>
+        </article>
+        <article class="card stat-card">
+          <p>Total Expenses</p>
+          <h2 class="stat-value" id="total-expenses">₹0</h2>
+        </article>
+        <article class="card stat-card">
+          <p>You Owe</p>
+          <h2 class="stat-value negative" id="you-owe">₹0</h2>
+        </article>
+        <article class="card stat-card">
+          <p>You're Owed</p>
+          <h2 class="stat-value positive" id="you-are-owed">₹0</h2>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="card section-card">
+          <div class="section-title">
+            <h2>Recent Expenses</h2>
+            <a href="/pages/history.html">View all</a>
+          </div>
+          <div class="expense-list" id="recent-expenses">
+            <p class="muted">Loading expenses...</p>
+          </div>
+        </article>
+
+        <article class="card section-card">
+          <div class="section-title"><h2>Quick Actions</h2></div>
+          <div class="quick-actions">
+            <a class="quick-link" href="/pages/add-expense.html">＋ Add an expense</a>
+            <a class="quick-link" href="/pages/groups.html">♧ View groups</a>
+            <a class="quick-link" href="/pages/balances.html">◈ Check balances</a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

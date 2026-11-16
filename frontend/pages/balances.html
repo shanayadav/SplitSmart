@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balances | SplitSmart</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <a class="brand" href="/">SplitSmart.</a>
+    <button class="menu-button" data-menu-button aria-label="Open menu">☰</button>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar" data-sidebar>
+      <a class="brand" href="/">SplitSmart.</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="/"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link" href="/pages/groups.html"><span class="nav-icon">♧</span>My Groups</a>
+        <a class="nav-link" href="/pages/add-expense.html"><span class="nav-icon">＋</span>Add Expense</a>
+        <a class="nav-link active" href="/pages/balances.html"><span class="nav-icon">◈</span>Balances</a>
+        <a class="nav-link" href="/pages/history.html"><span class="nav-icon">◷</span>History</a>
+      </nav>
+    </aside>
+    <div class="menu-overlay" data-menu-overlay></div>
+
+    <main class="page-content">
+      <section class="page-heading">
+        <div>
+          <h1>Your Balances</h1>
+          <p class="subtitle">A basic equal-split calculation from saved expenses.</p>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="card stat-card">
+          <p>Total You're Owed</p>
+          <h2 class="stat-value positive" id="total-owed">₹0</h2>
+        </article>
+        <article class="card stat-card">
+          <p>Total You Owe</p>
+          <h2 class="stat-value negative" id="total-owe">₹0</h2>
+        </article>
+        <article class="card stat-card">
+          <p>Net Balance</p>
+          <h2 class="stat-value" id="net-balance">₹0</h2>
+        </article>
+      </section>
+
+      <article class="card section-card">
+        <div class="section-title"><h2>Balance Summary</h2></div>
+        <div class="balance-list" id="balance-list">
+          <p class="muted">Calculating balances...</p>
+        </div>
+      </article>
+
+      <aside class="explanation">
+        <strong>How it works:</strong> The amount is divided by the number of participants. If you paid, the others owe you their shares. Otherwise, you owe your one share.
+      </aside>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/balances.js"></script>
+</body>
+</html>

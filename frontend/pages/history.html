@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History | SplitSmart</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="mobile-header">
+    <a class="brand" href="/">SplitSmart.</a>
+    <button class="menu-button" data-menu-button aria-label="Open menu">☰</button>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar" data-sidebar>
+      <a class="brand" href="/">SplitSmart.</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="/"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link" href="/pages/groups.html"><span class="nav-icon">♧</span>My Groups</a>
+        <a class="nav-link" href="/pages/add-expense.html"><span class="nav-icon">＋</span>Add Expense</a>
+        <a class="nav-link" href="/pages/balances.html"><span class="nav-icon">◈</span>Balances</a>
+        <a class="nav-link active" href="/pages/history.html"><span class="nav-icon">◷</span>History</a>
+      </nav>
+    </aside>
+    <div class="menu-overlay" data-menu-overlay></div>
+
+    <main class="page-content">
+      <section class="page-heading">
+        <div>
+          <h1>Expense History</h1>
+          <p class="subtitle">Every expense submitted through the form appears here.</p>
+        </div>
+        <a class="button" href="/pages/add-expense.html">+ Add Expense</a>
+      </section>
+
+      <section class="card table-card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Group</th>
+                <th>Paid by</th>
+                <th>People</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="empty-history" hidden>No expenses have been added.</p>
+      </section>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/history.js"></script>
+</body>
+</html>
