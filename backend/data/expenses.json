@@ -3,27 +3,74 @@
     "id": 1,
     "description": "Dinner",
     "amount": 900,
+    "groupId": "college-friends",
     "group": "College Friends",
     "paidBy": "You",
     "participants": 3,
+    "splitWith": [
+      "You",
+      "Riya",
+      "Ananya"
+    ],
     "date": "2026-11-12"
   },
   {
     "id": 2,
     "description": "Groceries",
     "amount": 600,
+    "groupId": "flatmates",
     "group": "Flatmates",
     "paidBy": "Riya",
     "participants": 3,
+    "splitWith": [
+      "You",
+      "Riya",
+      "Ananya"
+    ],
     "date": "2026-11-13"
   },
   {
     "id": 3,
     "description": "Movie",
     "amount": 450,
+    "groupId": "college-friends",
     "group": "College Friends",
     "paidBy": "You",
     "participants": 3,
+    "splitWith": [
+      "You",
+      "Riya",
+      "Kajal"
+    ],
     "date": "2026-11-14"
+  },
+  {
+    "id": 1794941337816,
+    "description": "grocery run",
+    "amount": 590,
+    "groupId": "flatmates",
+    "group": "Flatmates",
+    "paidBy": "You",
+    "participants": 2,
+    "splitWith": [
+      "You",
+      "Riya"
+    ],
+    "date": "2026-11-17"
+  },
+  {
+    "id": 1794941474724,
+    "description": "lunch",
+    "amount": 700,
+    "groupId": "flatmates",
+    "group": "Flatmates",
+    "paidBy": "You",
+    "participants": 3,
+    "splitWith": [
+      "You",
+      "Riya",
+      "Ananya"
+    ],
+    "date": "2026-11-17"
   }
 ]

@@ -1,24 +1,43 @@
 async function loadBalances() {
   const balanceList = document.querySelector("#balance-list");
+  const balanceMessage = document.querySelector("#balance-message");
 
   try {
-    const expenses = await getExpenses();
-    let youOwe = 0;
-    let youAreOwed = 0;
-    const people = {};
+    const [expenses, settlements] = await Promise.all([getExpenses(), getSettlements()]);
+    const people = new Map();
+
+    function addBalance(groupId, group, person, amount) {
+      const key = `${groupId}::${person}`;
+      const current = people.get(key) || { groupId, group, person, amount: 0 };
+      current.amount += amount;
+      people.set(key, current);
+    }
 
     expenses.forEach(expense => {
-      const share = expense.amount / expense.participants;
+      const splitWith = expense.splitWith || [];
+      const participantCount = splitWith.length || expense.participants;
+      const share = expense.amount / participantCount;
 
       if (expense.paidBy === "You") {
-        const amountOwedToYou = expense.amount - share;
-        youAreOwed += amountOwedToYou;
-        people[expense.group] = (people[expense.group] || 0) + amountOwedToYou;
-      } else {
-        youOwe += share;
-        people[expense.paidBy] = (people[expense.paidBy] || 0) - share;
+        splitWith
+          .filter(person => person !== "You")
+          .forEach(person => addBalance(expense.groupId, expense.group, person, share));
+      } else if (splitWith.includes("You")) {
+        addBalance(expense.groupId, expense.group, expense.paidBy, -share);
       }
     });
+
+    settlements.forEach(settlement => {
+      addBalance(settlement.groupId, settlement.group, settlement.person, -settlement.amount);
+    });
+
+    const entries = [...people.values()].filter(entry => Math.abs(entry.amount) >= 0.01);
+    const youAreOwed = entries
+      .filter(entry => entry.amount > 0)
+      .reduce((total, entry) => total + entry.amount, 0);
+    const youOwe = entries
+      .filter(entry => entry.amount < 0)
+      .reduce((total, entry) => total + Math.abs(entry.amount), 0);
 
     document.querySelector("#total-owed").textContent = formatCurrency(youAreOwed);
     document.querySelector("#total-owe").textContent = formatCurrency(youOwe);
@@ -28,16 +47,45 @@ async function loadBalances() {
     netElement.textContent = formatCurrency(netBalance);
     netElement.className = `stat-value ${netBalance >= 0 ? "positive" : "negative"}`;
 
-    const entries = Object.entries(people);
-    balanceList.innerHTML = entries.length ? entries.map(([name, amount]) => `
+    balanceList.innerHTML = entries.length ? entries.map((entry, index) => `
       <div class="balance-row">
-        <strong>${escapeHtml(name)}</strong>
-        <span class="muted">Equal split summary</span>
-        <span class="expense-amount ${amount >= 0 ? "positive" : "negative"}">
-          ${amount >= 0 ? "You get " : "You owe "}${formatCurrency(Math.abs(amount))}
+        <div class="balance-person">
+          <strong>${escapeHtml(entry.person)}</strong>
+          <span class="muted">${escapeHtml(entry.group)}</span>
+        </div>
+        <span class="expense-amount ${entry.amount >= 0 ? "positive" : "negative"}">
+          ${entry.amount >= 0 ? "You get " : "You owe "}${formatCurrency(Math.abs(entry.amount))}
         </span>
+        <button class="button secondary small-button" type="button" data-settle-index="${index}">Settle Up</button>
       </div>
-    `).join("") : '<p class="muted">Add an expense to calculate balances.</p>';
+    `).join("") : '<p class="muted">All balances are settled.</p>';
+
+    balanceList.querySelectorAll("[data-settle-index]").forEach(button => {
+      button.addEventListener("click", async () => {
+        const entry = entries[Number(button.dataset.settleIndex)];
+        const action = entry.amount > 0 ? `${entry.person} has paid you` : `you have paid ${entry.person}`;
+
+        if (!window.confirm(`Confirm that ${action} ${formatCurrency(Math.abs(entry.amount))} for ${entry.group}?`)) {
+          return;
+        }
+
+        button.disabled = true;
+        try {
+          await addSettlement({
+            groupId: entry.groupId,
+            person: entry.person,
+            amount: entry.amount
+          });
+          balanceMessage.textContent = `Balance with ${entry.person} in ${entry.group} was settled.`;
+          balanceMessage.className = "message show success";
+          await loadBalances();
+        } catch (error) {
+          balanceMessage.textContent = error.message;
+          balanceMessage.className = "message show error";
+          button.disabled = false;
+        }
+      });
+    });
   } catch (error) {
     balanceList.innerHTML = '<p class="negative">Start the Node server to calculate balances.</p>';
   }
@@ -50,3 +98,7 @@ function escapeHtml(value) {
 }
 
 loadBalances();
+
+// Refresh balances when the user returns after adding or deleting an expense
+// in another page or browser tab.
+window.addEventListener("focus", loadBalances);

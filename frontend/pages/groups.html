@@ -28,37 +28,41 @@
       <section class="page-heading">
         <div>
           <h1>My Groups</h1>
-          <p class="subtitle">Three sample groups keep the project simple.</p>
+          <p class="subtitle">Create a group and add the people you split expenses with.</p>
         </div>
         <a class="button" href="/pages/add-expense.html">+ Add Expense</a>
       </section>
 
-      <section class="group-grid">
-        <article class="card group-card">
-          <h2>Goa Trip</h2>
-          <p class="member-list">You, Riya, Ananya and Simran</p>
-          <p class="group-total">4 members</p>
-          <p class="muted">Trip expenses</p>
-        </article>
-        <article class="card group-card">
-          <h2>Flatmates</h2>
-          <p class="member-list">You, Riya and Ananya</p>
-          <p class="group-total">3 members</p>
-          <p class="muted">Home expenses</p>
-        </article>
-        <article class="card group-card">
-          <h2>College Friends</h2>
-          <p class="member-list">You, Riya, Ananya, Kajal and Simran</p>
-          <p class="group-total">5 members</p>
-          <p class="muted">Food and entertainment</p>
-        </article>
+      <section class="group-page-grid">
+        <form class="card form-card compact-form" id="group-form">
+          <h2>Add a Group</h2>
+          <div class="form-field">
+            <label for="group-name">Group name</label>
+            <input id="group-name" name="name" type="text" maxlength="50" placeholder="Example: Office Friends" required>
+          </div>
+          <div class="form-field">
+            <label for="group-members">Member names</label>
+            <input id="group-members" name="members" type="text" placeholder="Example: Riya, Shreya, Kabir" required>
+            <p class="field-hint">Separate names with commas. You are added automatically.</p>
+          </div>
+          <button class="button" type="submit">Create Group</button>
+          <div class="message" id="group-message" role="status"></div>
+        </form>
+
+        <div>
+          <div class="group-grid" id="group-list">
+            <p class="muted">Loading groups...</p>
+          </div>
+        </div>
       </section>
 
       <aside class="explanation">
-        <strong>Project scope:</strong> Groups are fixed sample data. Creating groups, invitations and member accounts are intentionally not included.
+        <strong>How it works:</strong> A group stores its name and member list. The same members become available while adding an expense.
       </aside>
     </main>
   </div>
+  <script src="/js/api.js"></script>
   <script src="/js/common.js"></script>
+  <script src="/js/groups.js"></script>
 </body>
 </html>

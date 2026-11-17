@@ -30,6 +30,11 @@ select {
   font: inherit;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 a {
   color: inherit;
 }
@@ -252,6 +257,17 @@ h1 {
   gap: 20px;
 }
 
+.group-page-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.5fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.group-page-grid .group-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .group-card {
   padding: 24px;
 }
@@ -271,6 +287,20 @@ h1 {
 .form-card {
   max-width: 720px;
   padding: 28px;
+}
+
+.compact-form {
+  max-width: none;
+}
+
+.compact-form .form-field {
+  margin-bottom: 18px;
+}
+
+.field-hint {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .form-grid {
@@ -303,6 +333,56 @@ input:focus,
 select:focus {
   outline: 2px solid rgba(128, 101, 201, 0.3);
   border-color: var(--purple);
+}
+
+.split-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.split-fieldset legend {
+  margin-bottom: 8px;
+  color: var(--purple-dark);
+  font-weight: 700;
+}
+
+.split-choice-row,
+.member-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.choice-option,
+.member-option {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.choice-option input,
+.member-option input {
+  width: auto;
+  margin: 0;
+}
+
+.member-checklist {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 9px;
+  background: var(--purple-light);
+}
+
+.member-checklist[hidden] {
+  display: none;
 }
 
 .split-preview {
@@ -366,6 +446,29 @@ th {
   text-align: center;
 }
 
+.delete-button {
+  padding: 7px 10px;
+  border: 1px solid #d8a9ad;
+  border-radius: 7px;
+  background: #fff5f5;
+  color: var(--red);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.balance-row {
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.8fr) auto;
+}
+
+.balance-person {
+  display: grid;
+}
+
+.small-button {
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
 .explanation {
   margin-top: 24px;
   padding: 18px 22px;
@@ -380,6 +483,10 @@ th {
   }
 
   .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .group-page-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -471,5 +578,10 @@ th {
   .balance-row .muted {
     grid-column: 1 / -1;
     grid-row: 2;
+  }
+
+  .balance-row .small-button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 }

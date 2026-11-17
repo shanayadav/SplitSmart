@@ -1,0 +1,17 @@
+[
+  {
+    "id": "goa-trip",
+    "name": "Goa Trip",
+    "members": ["You", "Riya", "Ananya", "Simran"]
+  },
+  {
+    "id": "flatmates",
+    "name": "Flatmates",
+    "members": ["You", "Riya", "Ananya"]
+  },
+  {
+    "id": "college-friends",
+    "name": "College Friends",
+    "members": ["You", "Riya", "Ananya", "Kajal", "Simran"]
+  }
+]

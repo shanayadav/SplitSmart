@@ -50,28 +50,32 @@
             <label for="group">Group</label>
             <select id="group" name="group" required>
               <option value="">Choose a group</option>
-              <option>Goa Trip</option>
-              <option>Flatmates</option>
-              <option>College Friends</option>
             </select>
           </div>
           <div class="form-field">
             <label for="paid-by">Paid by</label>
             <select id="paid-by" name="paidBy" required>
-              <option>You</option>
-              <option>Riya</option>
-              <option>Ananya</option>
-              <option>Simran</option>
+              <option value="">Choose a group first</option>
             </select>
           </div>
-          <div class="form-field full-width">
-            <label for="participants">Number of people sharing the expense</label>
-            <input id="participants" name="participants" type="number" min="2" max="10" value="3" required>
-          </div>
+          <fieldset class="form-field full-width split-fieldset">
+            <legend>Split between</legend>
+            <div class="split-choice-row">
+              <label class="choice-option">
+                <input type="radio" name="splitType" value="all" checked>
+                All group members
+              </label>
+              <label class="choice-option">
+                <input type="radio" name="splitType" value="selected">
+                Choose people
+              </label>
+            </div>
+            <div class="member-checklist" id="member-checklist" hidden></div>
+          </fieldset>
         </div>
 
         <div class="split-preview" id="split-preview"></div>
-        <button class="button" type="submit">Save Expense</button>
+        <button class="button" id="save-expense-button" type="submit" disabled>Save Expense</button>
         <div class="message" id="form-message" role="status"></div>
       </form>
     </main>

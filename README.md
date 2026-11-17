@@ -1,6 +1,6 @@
 # SplitSmart
 
-SplitSmart is a simple shared-expense website built with HTML, CSS and JavaScript. A small Node.js backend provides enough connectivity to save expenses and display them on the dashboard, history and balances pages.
+SplitSmart is a shared-expense website built with HTML, CSS and JavaScript. A small Node.js backend saves groups, expenses and settlements in JSON files and displays the results on the dashboard, history and balances pages.
 
 ## Run the project
 
@@ -26,28 +26,35 @@ SplitSmart/
 │   └── index.html          Dashboard
 ├── backend/
 │   ├── data/expenses.json  Simple persistent storage
+│   ├── data/groups.json    Group names and members
+│   ├── data/settlements.json Recorded balance settlements
 │   └── server.js           Web server and API endpoints
-├── package.json            Start command
-└── VIVA.md                 Presentation and viva explanation
+└── package.json            Start command
 ```
 
 ## Main functionality
 
-- Three fixed sample groups
-- Add and save an expense
-- Equal split calculation
+- Create groups with member names
+- Split an expense with all or selected group members
+- Equal split calculation using the selected people
 - Dashboard totals
-- Expense history
-- Basic balance summary
+- Expense history with deletion
+- Per-person and per-group balance summary
+- Settle Up action for recorded balances
 - Responsive desktop and mobile layout
 
 ## Backend API
 
 - `GET /api/expenses` returns all saved expenses.
 - `POST /api/expenses` validates and saves a new expense.
+- `DELETE /api/expenses/:id` deletes one expense.
+- `GET /api/groups` returns all groups.
+- `POST /api/groups` creates a group.
+- `GET /api/settlements` returns recorded settlements.
+- `POST /api/settlements` settles one person-and-group balance.
 
-Expense records are stored in `backend/data/expenses.json`. This keeps the backend small and understandable for a classroom project.
+Records are stored in three small JSON files. This keeps the backend understandable for a classroom project while still demonstrating multiple API operations.
 
 ## Project scope
 
-The project intentionally does not include accounts, login, invitations, payments, settlements or advanced split options. Its focus is frontend development with one clear backend data flow.
+The project intentionally does not include accounts, login, invitations or an actual payment gateway. Settle Up records a payment made outside the website; it does not transfer money. The focus remains frontend development with a small, explainable backend.
