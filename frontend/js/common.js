@@ -37,3 +37,47 @@ function formatDate(dateString) {
     year: "numeric"
   }).format(new Date(`${dateString}T00:00:00`));
 }
+
+function calculateBalances(expenses, settlements) {
+  const people = new Map();
+
+  function addBalance(groupId, group, person, amount) {
+    const key = `${groupId}::${person}`;
+    const current = people.get(key) || { groupId, group, person, amount: 0 };
+    current.amount += amount;
+    people.set(key, current);
+  }
+
+  expenses.forEach(expense => {
+    const splitWith = expense.splitWith || [];
+    const participantCount = splitWith.length || expense.participants;
+
+    if (!participantCount) {
+      return;
+    }
+
+    const share = expense.amount / participantCount;
+
+    if (expense.paidBy === "You") {
+      splitWith
+        .filter(person => person !== "You")
+        .forEach(person => addBalance(expense.groupId, expense.group, person, share));
+    } else if (splitWith.includes("You")) {
+      addBalance(expense.groupId, expense.group, expense.paidBy, -share);
+    }
+  });
+
+  settlements.forEach(settlement => {
+    addBalance(settlement.groupId, settlement.group, settlement.person, -settlement.amount);
+  });
+
+  const entries = [...people.values()].filter(entry => Math.abs(entry.amount) >= 0.01);
+  const owed = entries
+    .filter(entry => entry.amount > 0)
+    .reduce((total, entry) => total + entry.amount, 0);
+  const owe = entries
+    .filter(entry => entry.amount < 0)
+    .reduce((total, entry) => total + Math.abs(entry.amount), 0);
+
+  return { entries, owe, owed, net: owed - owe };
+}

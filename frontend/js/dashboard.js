@@ -4,7 +4,7 @@ async function loadDashboard() {
   try {
     const [expenses, groups, settlements] = await Promise.all([getExpenses(), getGroups(), getSettlements()]);
     const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    const amounts = calculateUserAmounts(expenses, settlements);
+    const amounts = calculateBalances(expenses, settlements);
 
     document.querySelector("#group-count").textContent = groups.length;
     document.querySelector("#total-expenses").textContent = formatCurrency(total);
@@ -30,34 +30,6 @@ async function loadDashboard() {
   }
 }
 
-function calculateUserAmounts(expenses, settlements) {
-  const totals = expenses.reduce((result, expense) => {
-    const splitWith = expense.splitWith || [];
-    const participantCount = splitWith.length || expense.participants;
-    const share = expense.amount / participantCount;
-
-    if (expense.paidBy === "You") {
-      result.owed += share * splitWith.filter(person => person !== "You").length;
-    } else if (splitWith.includes("You")) {
-      result.owe += share;
-    }
-
-    return result;
-  }, { owe: 0, owed: 0 });
-
-  settlements.forEach(settlement => {
-    if (settlement.amount > 0) {
-      totals.owed -= settlement.amount;
-    } else {
-      totals.owe -= Math.abs(settlement.amount);
-    }
-  });
-
-  totals.owe = Math.max(0, totals.owe);
-  totals.owed = Math.max(0, totals.owed);
-  return totals;
-}
-
 function escapeHtml(value) {
   const element = document.createElement("div");
   element.textContent = value;
@@ -65,3 +37,12 @@ function escapeHtml(value) {
 }
 
 loadDashboard();
+
+// Browsers can restore the dashboard from their back/forward cache. Refresh its
+// figures whenever it becomes active again so newly saved expenses are shown.
+window.addEventListener("pageshow", event => {
+  if (event.persisted) {
+    loadDashboard();
+  }
+});
+window.addEventListener("focus", loadDashboard);

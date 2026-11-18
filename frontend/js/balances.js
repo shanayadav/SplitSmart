@@ -4,45 +4,13 @@ async function loadBalances() {
 
   try {
     const [expenses, settlements] = await Promise.all([getExpenses(), getSettlements()]);
-    const people = new Map();
+    const balances = calculateBalances(expenses, settlements);
+    const { entries } = balances;
 
-    function addBalance(groupId, group, person, amount) {
-      const key = `${groupId}::${person}`;
-      const current = people.get(key) || { groupId, group, person, amount: 0 };
-      current.amount += amount;
-      people.set(key, current);
-    }
+    document.querySelector("#total-owed").textContent = formatCurrency(balances.owed);
+    document.querySelector("#total-owe").textContent = formatCurrency(balances.owe);
 
-    expenses.forEach(expense => {
-      const splitWith = expense.splitWith || [];
-      const participantCount = splitWith.length || expense.participants;
-      const share = expense.amount / participantCount;
-
-      if (expense.paidBy === "You") {
-        splitWith
-          .filter(person => person !== "You")
-          .forEach(person => addBalance(expense.groupId, expense.group, person, share));
-      } else if (splitWith.includes("You")) {
-        addBalance(expense.groupId, expense.group, expense.paidBy, -share);
-      }
-    });
-
-    settlements.forEach(settlement => {
-      addBalance(settlement.groupId, settlement.group, settlement.person, -settlement.amount);
-    });
-
-    const entries = [...people.values()].filter(entry => Math.abs(entry.amount) >= 0.01);
-    const youAreOwed = entries
-      .filter(entry => entry.amount > 0)
-      .reduce((total, entry) => total + entry.amount, 0);
-    const youOwe = entries
-      .filter(entry => entry.amount < 0)
-      .reduce((total, entry) => total + Math.abs(entry.amount), 0);
-
-    document.querySelector("#total-owed").textContent = formatCurrency(youAreOwed);
-    document.querySelector("#total-owe").textContent = formatCurrency(youOwe);
-
-    const netBalance = youAreOwed - youOwe;
+    const netBalance = balances.net;
     const netElement = document.querySelector("#net-balance");
     netElement.textContent = formatCurrency(netBalance);
     netElement.className = `stat-value ${netBalance >= 0 ? "positive" : "negative"}`;
